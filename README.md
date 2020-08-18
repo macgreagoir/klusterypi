@@ -18,10 +18,13 @@ _There is no need to limit to four, but this expected in this version._
 
 0. Review and edit secrets
 
- 0. `cp secrets/example.sh secrets/config.sh`
- 0. Edit `secrets/config.sh` for your network, machines and credentials
+ * `cp secrets/example.sh secrets/config.sh`
+ * Edit `secrets/config.sh` for your network, machines and credentials
 
 1. Install and configure
 
- 1. On the router, run `scripts/00-router.sh.sh`
- 1. On the three k8s machines (master and nodes), run `scripts/01-k8s_common.sh`
+ * You likely want to clone this repo and copy `secrets/config.sh` to each k8s machine
+ * On the router, run `scripts/00-router.sh.sh`
+ * On the three k8s machines (master and nodes), run `scripts/01-k8s_common.sh`
+ * On the k8s master, run `scripts/02-k8s_master.sh`
+ * On the k8s master, run `scripts/03-k8s_cni.sh` as your non-root user

@@ -72,16 +72,17 @@ grep $NETADDR $DM_CONF || {
 # DHCP interface
 interface=$WLAN
 # DHCP Pool
-dhcp-range=${NETADDR}.11,${NETADDR}.30,${NETMASKQ},24h
+# dhcp-range=192.168.1.11,192.168.1.30,255.255.255.0,24h
+dhcp-range=${NETADDR}.${MASTER_IP},${NETADDR}.$((MASTER_IP+19)),${NETMASKQ},24h
 # klusterypi DNS domain
 domain=$PIDOMAIN
 # klusterypi router hostname
 address=/${PIHOST}.${PIDOMAIN}/${NETADDR}.1
 
 # Reserved addrs for cluster nodes
-dhcp-host=${NODE0_MAC},${NETADDR}.11
-dhcp-host=${NODE1_MAC},${NETADDR}.12
-dhcp-host=${NODE2_MAC},${NETADDR}.13
+dhcp-host=${MASTER_MAC},${NETADDR}.${MASTER_IP}
+dhcp-host=${NODE0_MAC},${NETADDR}.${NODE0_IP}
+dhcp-host=${NODE1_MAC},${NETADDR}.${NODE1_IP}
 DMCFG
 }
 
