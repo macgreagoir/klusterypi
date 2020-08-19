@@ -45,12 +45,12 @@ source $KLUSTERY/secrets/config.sh || exit $?
 }
 
 # Install the CNI
-kubectl -n kube-system get pods | grep weave 1>&2 || {
-  k8s_version=$(kubectl version | base64 | tr -d '\n')
-  curl --location -o $KLUSTERY/secrets/weave-cni.yaml \
-    "https://cloud.weave.works/k8s/net?k8s-version=${k8s_version}&env.IPALLOC_RANGE=${POD_NET_CIDR}"
+# Weave's containers just CrashLoop-ed so I gave up on it and used Flannel.
+kubectl -n kube-system get pods | grep kube-flannel || {
+  # TODO Installs specific version because it works, but maybe master would too.
+  curl -sSL https://raw.githubusercontent.com/coreos/flannel/v0.12.0/Documentation/kube-flannel.yml |
+    kubectl apply -f -
 }
 
-kubectl apply -f $KLUSTERY/secrets/weave-cni.yaml
-kubectl -n kube-system get pods | grep weave
+kubectl -n kube-system get pods | grep kube-flannel
 

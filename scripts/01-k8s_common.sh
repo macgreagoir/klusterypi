@@ -54,19 +54,15 @@ KLIST
 
 which kubeadm || {
   apt update
-  # Install specific versions.
+  # TODO Installs specific versions because they are tested. Test without pinning.
   apt install -y kubelet=1.16.2-00 kubectl=1.16.2-00 kubeadm=1.16.2-00 kubernetes-cni=0.7.5-00
   apt-mark hold kubelet kubectl kubeadm kubernetes-cni
 
   REBOOT=1
 }
 
-# To avoid error "Couldn't load target `KUBE-MARK-DROP':No such file or directory", use legacy iptables.
-[[ $(update-alternatives --query iptables | awk '/^Value/ {print $2}') = /usr/sbin/iptables-legacy ]] || {
+[[ $(sysctl -n net.bridge.bridge-nf-call-iptables 2&>1) -eq 1 ]] || {
   sysctl net.bridge.bridge-nf-call-iptables=1
-  update-alternatives --set iptables /usr/sbin/iptables-legacy
-
-  REBOOT=1
 }
 
 [[ $REBOOT -eq 0 ]] || reboot

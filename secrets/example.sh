@@ -18,4 +18,3 @@ export NODE1_IP=13
 export COUNTRY=IE
 export SSID=notanssid
 export PASSPHR=notapassphr
-export POD_NET_CIDR=10.1.0.0/16
