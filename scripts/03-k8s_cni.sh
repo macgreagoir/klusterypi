@@ -49,8 +49,8 @@ kubectl -n kube-system get pods | grep weave 1>&2 || {
   k8s_version=$(kubectl version | base64 | tr -d '\n')
   curl --location -o $KLUSTERY/secrets/weave-cni.yaml \
     "https://cloud.weave.works/k8s/net?k8s-version=${k8s_version}&env.IPALLOC_RANGE=${POD_NET_CIDR}"
-  kubectl apply -f $KLUSTERY/secrets/weave-cni.yaml
 }
 
+kubectl apply -f $KLUSTERY/secrets/weave-cni.yaml
 kubectl -n kube-system get pods | grep weave
 

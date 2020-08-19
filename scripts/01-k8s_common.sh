@@ -56,6 +56,7 @@ which kubeadm || {
   apt update
   # Install specific versions.
   apt install -y kubelet=1.16.2-00 kubectl=1.16.2-00 kubeadm=1.16.2-00 kubernetes-cni=0.7.5-00
+  apt-mark hold kubelet kubectl kubeadm kubernetes-cni
 
   REBOOT=1
 }
