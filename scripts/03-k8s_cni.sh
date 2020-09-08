@@ -47,8 +47,7 @@ source $KLUSTERY/secrets/config.sh || exit $?
 # Install the CNI
 # Weave's containers just CrashLoop-ed so I gave up on it and used Flannel.
 kubectl -n kube-system get pods | grep kube-flannel || {
-  # TODO Installs specific version because it works, but maybe master would too.
-  curl -sSL https://raw.githubusercontent.com/coreos/flannel/v0.12.0/Documentation/kube-flannel.yml |
+  curl -sSL https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml |
     kubectl apply -f -
 }
 
